@@ -14,4 +14,12 @@
     <PackageReference Include="Moq" Version="4.13.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BearstrengthApi\BearstrengthApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Data\Repository\" />
+  </ItemGroup>
 </Project>
