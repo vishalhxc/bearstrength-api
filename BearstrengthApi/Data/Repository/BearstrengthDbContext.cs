@@ -6,6 +6,10 @@ namespace BearstrengthApi.Data.Repository
 {
     public class BearstrengthDbContext : DbContext
     {
+        public BearstrengthDbContext()
+        {
+        }
+
         public BearstrengthDbContext(DbContextOptions<BearstrengthDbContext> options) : base(options)
         {
         }

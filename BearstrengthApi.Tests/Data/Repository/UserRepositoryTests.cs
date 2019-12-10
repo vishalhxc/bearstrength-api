@@ -29,12 +29,10 @@ namespace BearstrengthApi.Tests.Data.Repository
             };
         }
 
-        [Fact(DisplayName = "Add user calls context")]
+        [Fact(DisplayName = "Add user calls context save")]
         public void AddUser_CreatesUser()
         {
             userRepository.AddUser(userEntity);
-
-            mockDbContext.Verify(context => context.Users.Add(userEntity));
             mockDbContext.Verify(context => context.SaveChanges());
         }
     }

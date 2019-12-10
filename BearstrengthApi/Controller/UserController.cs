@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BearstrengthApi.Data.Repository;
-using BearstrengthApi.DTO;
+﻿using BearstrengthApi.DTO;
 using BearstrengthApi.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,10 +20,10 @@ namespace BearstrengthApi.Controller
         }
 
         [HttpPost]
-        public void CreateUser(UserDto user)
+        public IActionResult CreateUser(UserDto user)
         {
             _userService.CreateUser(user);
-
+            return Created("CreateUser", user);
         }
     }
 }
