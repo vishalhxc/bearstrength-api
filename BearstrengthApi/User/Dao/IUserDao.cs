@@ -1,6 +1,6 @@
-﻿using BearstrengthApi.DTO;
+﻿using BearstrengthApi.User.Dto;
 
-namespace BearstrengthApi.DAO
+namespace BearstrengthApi.User.Dao
 {
     public interface IUserDao
     {

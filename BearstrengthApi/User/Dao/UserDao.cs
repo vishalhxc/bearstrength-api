@@ -1,9 +1,8 @@
-﻿using System;
-using BearstrengthApi.Data.Repository;
-using BearstrengthApi.DTO;
-using BearstrengthApi.Entity;
+﻿using BearstrengthApi.User.Dto;
+using BearstrengthApi.User.Entity;
+using BearstrengthApi.User.Repository;
 
-namespace BearstrengthApi.DAO
+namespace BearstrengthApi.User.Dao
 {
     public class UserDao : IUserDao
     {

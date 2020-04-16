@@ -1,5 +1,5 @@
-﻿using BearstrengthApi.DTO;
-using BearstrengthApi.Service;
+﻿using BearstrengthApi.Model;
+using BearstrengthApi.User.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -20,7 +20,7 @@ namespace BearstrengthApi.Controller
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserDto user)
+        public IActionResult CreateUser(UserRequest user)
         {
             _userService.CreateUser(user);
             return Created("CreateUser", user);

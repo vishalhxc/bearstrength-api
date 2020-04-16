@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BearstrengthApi.Entity
+namespace BearstrengthApi.User.Entity
 {
     public class UserEntity
     {

@@ -8,12 +8,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Service\" />
-    <Folder Include="DAO\" />
     <Folder Include="Data\" />
-    <Folder Include="Entity\" />
-    <Folder Include="Data\Repository\" />
-    <Folder Include="DTO\" />
+    <Folder Include="User\" />
+    <Folder Include="User\Dao\" />
+    <Folder Include="User\Repository\" />
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="User\Dto\" />
+    <Folder Include="User\Entity\" />
+    <Folder Include="Controller\" />
+    <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />

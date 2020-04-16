@@ -1,8 +1,7 @@
-﻿using System;
-using BearstrengthApi.Entity;
+﻿using BearstrengthApi.User.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace BearstrengthApi.Data.Repository
+namespace BearstrengthApi.Data
 {
     public class BearstrengthDbContext : DbContext
     {

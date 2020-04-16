@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using BearstrengthApi.User.Dto;
 
-namespace BearstrengthApi.DTO
+namespace BearstrengthApi.Model
 {
-    public class UserDto
+    public class UserRequest
     {
         [Required]
         [StringLength(20)]
