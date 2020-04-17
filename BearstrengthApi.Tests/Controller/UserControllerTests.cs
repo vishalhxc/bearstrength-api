@@ -1,12 +1,8 @@
-﻿using System;
-using BearstrengthApi.Controller;
-using BearstrengthApi.DAO;
-using BearstrengthApi.Data.Repository;
-using BearstrengthApi.DTO;
-using BearstrengthApi.Entity;
-using BearstrengthApi.Service;
+﻿using BearstrengthApi.Controller;
+using BearstrengthApi.Model;
+using BearstrengthApi.User.Dto;
+using BearstrengthApi.User.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -14,41 +10,50 @@ namespace BearstrengthApi.Tests.Controller
 {
     public class UserControllerTests
     {
-        private const string Username = "username";
-        private const string Email = "email";
-        private const string FullName = "fullName";
-
-        private Mock<ILogger<UserController>> mockLogger;
-        private Mock<IUserService> mockUserService;
-        private UserController userController;
-        private UserDto userDto;
+        private readonly Mock<IUserService> mockUserService;
+        private readonly UserController userController;
 
         public UserControllerTests()
         {
-            mockLogger = new Mock<ILogger<UserController>>();
             mockUserService = new Mock<IUserService>();
-
-            userController = new UserController(mockLogger.Object, mockUserService.Object);
-
-            userDto = new UserDto
-            {
-                Username = Username,
-                Email = Email,
-                FullName = FullName
-            };
+            userController = new UserController(mockUserService.Object);
         }
 
-        [Fact(DisplayName = "Create user endpoint calls user service")]
+        [Fact(DisplayName = "Create user, happy path, endpoint calls user service and returns response")]
         public void CreateUser_CallsRepository()
         {
-            mockUserService.Setup(
-                repo => repo.CreateUser(It.IsAny<UserDto>())).Verifiable();
+            var input = new UserRequest
+            {
+                Username = "user1",
+                Email = "user1@bearstrength.com",
+                FullName = "user 1"
+            };
+            var expectedStatus = 201;
+            var expected = new UserResponse
+            {
+                Username = "user1",
+                Email = "user1@bearstrength.com",
+                FullName = "user 1"
+            };
+            var convertedDto = new UserDto
+            {
+                Username = "user1",
+                Email = "user1@bearstrength.com",
+                FullName = "user 1"
+            };
 
-            IActionResult result = userController.CreateUser(userDto);
+            mockUserService.Setup(service => service.CreateUser(input))
+                .Returns(convertedDto);
 
-            //Assert.Equal(result.);
+            // act
+            var actual = userController.CreateUser(input).Result
+                as CreatedResult;
 
-            mockUserService.Verify(service => service.CreateUser(userDto));
+            // assert
+            Assert.Equal(expected, actual.Value);
+            Assert.Equal(expectedStatus, actual.StatusCode);
+            mockUserService.Verify(service => service.CreateUser(input), Times.Once);
+            mockUserService.VerifyNoOtherCalls();
         }
     }
 }

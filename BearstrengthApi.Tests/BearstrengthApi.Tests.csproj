@@ -19,10 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Data\Repository\" />
-    <Folder Include="DAO\" />
     <Folder Include="Controller\" />
-    <Folder Include="Service\" />
+    <Folder Include="User\" />
+    <Folder Include="User\Repository\" />
   </ItemGroup>
 </Project>

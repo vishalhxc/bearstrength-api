@@ -1,21 +1,21 @@
 ﻿using BearstrengthApi.Model;
-using BearstrengthApi.User.Dao;
 using BearstrengthApi.User.Dto;
+using BearstrengthApi.User.Repository;
 
 namespace BearstrengthApi.User.Service
 {
     public class UserService : IUserService
     {
-        private readonly IUserDao _userDao;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IUserDao userDao)
+        public UserService(IUserRepository userRepository)
         {
-            _userDao = userDao;
+            _userRepository = userRepository;
         }
 
-        public void CreateUser(UserRequest userRequest)
+        public UserDto CreateUser(UserRequest userRequest)
         {
-            _userDao.AddUser(ConvertRequestToDto(userRequest));
+            return _userRepository.AddUser(ConvertRequestToDto(userRequest));
         }
 
         private UserDto ConvertRequestToDto(UserRequest userRequest)

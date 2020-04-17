@@ -17,7 +17,10 @@ namespace BearstrengthApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.UseSerialColumns();
+            modelBuilder.Entity<UserEntity>(entity =>
+            {
+                entity.HasIndex(e => e.Email).IsUnique();
+            });
         }
     }
 }

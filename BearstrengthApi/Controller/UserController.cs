@@ -1,7 +1,7 @@
 ﻿using BearstrengthApi.Model;
+using BearstrengthApi.User.Dto;
 using BearstrengthApi.User.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace BearstrengthApi.Controller
 {
@@ -9,21 +9,28 @@ namespace BearstrengthApi.Controller
     [Route("api/users")]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
 
-        public UserController(ILogger<UserController> logger,
-                              IUserService userService)
+        public UserController(IUserService userService)
         {
-            _logger = logger;
             _userService = userService;
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserRequest user)
+        public ActionResult<UserResponse> CreateUser(UserRequest user)
         {
-            _userService.CreateUser(user);
-            return Created("CreateUser", user);
+            var userDto = _userService.CreateUser(user);
+            return Created("CreateUser", ConvertToUserResponse(userDto));
+        }
+
+        private UserResponse ConvertToUserResponse(UserDto userDto)
+        {
+            return new UserResponse
+            {
+                Username = userDto.Username,
+                Email = userDto.Email,
+                FullName = userDto.FullName
+            };
         }
     }
 }

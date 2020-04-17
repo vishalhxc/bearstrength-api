@@ -1,9 +1,9 @@
-﻿using BearstrengthApi.User.Entity;
+﻿using BearstrengthApi.User.Dto;
 
 namespace BearstrengthApi.User.Repository
 {
     public interface IUserRepository
     {
-        void AddUser(UserEntity userEntity);
+        UserDto AddUser(UserDto userDto);
     }
 }

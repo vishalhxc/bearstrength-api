@@ -1,4 +1,3 @@
-using BearstrengthApi.User.Dao;
 using BearstrengthApi.Data;
 using BearstrengthApi.User.Service;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +30,6 @@ namespace BearstrengthApi
             });
             services.AddEntityFrameworkNpgsql();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserDao, UserDao>();
             services.AddScoped<IUserRepository, UserRepository>();
         }
 

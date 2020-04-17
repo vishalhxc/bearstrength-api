@@ -1,17 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BearstrengthApi.User.Dto;
 
 namespace BearstrengthApi.User.Entity
 {
     public class UserEntity
     {
         [Key]
-        [Column("id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
-
-        [Required]
         [StringLength(20)]
         [Column("username")]
         public string Username { get; set; }
@@ -29,7 +25,6 @@ namespace BearstrengthApi.User.Entity
         public override bool Equals(object obj)
         {
             return obj is UserEntity entity &&
-                   Id == entity.Id &&
                    Username == entity.Username &&
                    Email == entity.Email &&
                    FullName == entity.FullName;
@@ -37,7 +32,7 @@ namespace BearstrengthApi.User.Entity
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, Username, Email, FullName);
+            return HashCode.Combine(Username, Email, FullName);
         }
     }
 }
