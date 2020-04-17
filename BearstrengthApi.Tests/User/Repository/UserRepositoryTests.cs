@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BearstrengthApi.Data;
 using BearstrengthApi.Error;
 using BearstrengthApi.User.Dto;
@@ -58,10 +59,11 @@ namespace BearstrengthApi.Tests.User.Repository
             var input = new UserDto
             {
                 Username = "existinguser",
-                Email = "existinguser@bearstrength.com",
+                Email = "anotheruser@bearstrength.com",
                 FullName = "test user"
             };
-            var expected = new ConflictException(ErrorConstants.UsernameAlreadyExists);
+            var expected = new ConflictException(
+                new List<string>() { ErrorConstants.UsernameAlreadyExists });
 
             var existingEntity = new UserEntity
             {

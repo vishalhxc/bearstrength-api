@@ -1,17 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace BearstrengthApi.Error
 {
-
-    public class NotFoundException: Exception
+    public class BearstrengthException : Exception
     {
-        public NotFoundException(string message, Exception exception)
-            : base (message) { }
+        private static List<string> _messages;
+        public List<string> Messages { get { return _messages; } }
+        public BearstrengthException(List<string> messages)
+            : base(string.Join(";", messages))
+        {
+            _messages = messages;
+        }
+        public BearstrengthException(List<string> messages, Exception exception)
+            : base(string.Join(";", messages, exception)) { }
     }
 
-    public class ConflictException : Exception
+    public class ConflictException : BearstrengthException
     {
-        public ConflictException(string message)
-            : base(message) { }
+        public ConflictException(List<string> messages)
+            : base(messages) { }
+        public ConflictException(List<string> messages, Exception exeption)
+            : base(messages, exeption) { }
     }
 
 }

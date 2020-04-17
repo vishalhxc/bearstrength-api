@@ -1,4 +1,6 @@
-﻿using BearstrengthApi.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BearstrengthApi.Data;
 using BearstrengthApi.Error;
 using BearstrengthApi.User.Dto;
 using BearstrengthApi.User.Entity;
@@ -15,21 +17,40 @@ namespace BearstrengthApi.User.Repository
 
         public UserDto AddUser(UserDto userDto)
         {
-            if (GetUser(userDto.Username) != null)
-            {
-                throw new ConflictException(
-                    ErrorConstants.UsernameAlreadyExists);
-            }
-
-            var entity = _context.Users.Add(ConvertToEntity(userDto))
-                .Entity;
-            _context.SaveChanges();
-            return ConvertToDto(entity);
+            ValidateUser(userDto.Username, userDto.Email);
+            return ConvertToDto(
+                SaveUser(ConvertToEntity(userDto)));
         }
 
-        private UserEntity GetUser(string username)
+        private List<UserEntity> GetUser(string username, string email)
         {
-            return _context.Users.Find(username);
+            return _context.Users.Where(
+                u => u.Username == username ||
+                u.Email == email).ToList();
+        }
+
+        private UserEntity SaveUser(UserEntity userEntity)
+        {
+            var entity = _context.Users.Add(userEntity)
+                .Entity;
+            _context.SaveChanges();
+            return entity;
+        }
+
+        private void ValidateUser(string username, string email)
+        {
+            var users = GetUser(username, email);
+            if (!users.Any()) return;
+
+            var errorMessages = new List<string>();
+            users.ForEach(u =>
+            {
+                if (u.Username == username)
+                    errorMessages.Add(ErrorConstants.UsernameAlreadyExists);
+                if (u.Email == email)
+                    errorMessages.Add(ErrorConstants.EmailAlreadyExists);
+            });
+            throw new ConflictException(errorMessages);
         }
 
         private UserEntity ConvertToEntity(UserDto userDto)

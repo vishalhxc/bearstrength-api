@@ -17,10 +17,15 @@ namespace BearstrengthApi.Controller
         }
 
         [HttpPost]
-        public ActionResult<UserResponse> CreateUser(UserRequest user)
+        public ActionResult<DetailResponse<UserResponse>> CreateUser(UserRequest user)
         {
             var userDto = _userService.CreateUser(user);
-            return Created("CreateUser", ConvertToUserResponse(userDto));
+            return Created("CreateUser",
+                new DetailResponse<UserResponse>
+                {
+                    Status = 201,
+                    Detail = ConvertToUserResponse(userDto)
+                });
         }
 
         private UserResponse ConvertToUserResponse(UserDto userDto)

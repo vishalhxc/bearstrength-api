@@ -29,11 +29,15 @@ namespace BearstrengthApi.Tests.Controller
                 FullName = "user 1"
             };
             var expectedStatus = 201;
-            var expected = new UserResponse
+            var expected = new DetailResponse<UserResponse>
             {
-                Username = "user1",
-                Email = "user1@bearstrength.com",
-                FullName = "user 1"
+                Status = 201,
+                Detail = new UserResponse
+                {
+                    Username = "user1",
+                    Email = "user1@bearstrength.com",
+                    FullName = "user 1"
+                }
             };
             var convertedDto = new UserDto
             {

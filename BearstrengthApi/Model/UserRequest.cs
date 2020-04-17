@@ -1,21 +1,22 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using BearstrengthApi.Error;
 using BearstrengthApi.User.Dto;
 
 namespace BearstrengthApi.Model
 {
     public class UserRequest
     {
-        [Required]
-        [StringLength(20)]
+        [Required(ErrorMessage = ErrorConstants.UsernameIsRequired)]
+        [StringLength(20, ErrorMessage = ErrorConstants.UsernameTooLong)]
         public string Username { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = ErrorConstants.EmailIsRequired)]
+        [StringLength(100, ErrorMessage = ErrorConstants.EmailTooLong)]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = ErrorConstants.FullNameIsRequired)]
+        [StringLength(100, ErrorMessage = ErrorConstants.FullNameTooLong)]
         public string FullName { get; set; }
 
         public override bool Equals(object obj)
